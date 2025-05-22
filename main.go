@@ -13,8 +13,6 @@ import (
 
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
-	// "github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
-	// "github.com/PaulSonOfLars/gotgbot/v2/ext/handlers/filters/message"
 )
 
 func main() {
@@ -64,8 +62,6 @@ func main() {
 	log.Printf("%s has been started...\n", b.User.Username)
 
 	
-	
-	
 	// Post request listener in this endpoint
 	server := &Server{Bot: b}
 	http.HandleFunc("/notify-lost-animal", server.handleLostAnimalNotification)
@@ -91,17 +87,26 @@ func (s *Server) handleLostAnimalNotification(w http.ResponseWriter, r *http.Req
 	msg := "<b>Lost animal have has been detected!</b> \n\n"
 	msg += fmt.Sprintf("🐾 <b>%s</b>\n📍 %s\n🗓️ %s\n\n", lostAnimal.Title, lostAnimal.Location, lostAnimal.DateLost)
 	
-	fmt.Println("-------------------------------------------")
-	fmt.Println(msg)
-	fmt.Println("-------------------------------------------")
-	
-	_ , err = s.Bot.SendMessage(int64(123123123), msg, &gotgbot.SendMessageOpts{
-		ParseMode: "HTML",
-	})
-	if err != nil {
-		log.Printf("Failed to send Telegram message: %v", err)
-		http.Error(w, "Failed to send Telegram message", http.StatusInternalServerError)
+	var users []models.TelegramUser
+	db := configs.DB
+
+	result := db.Find(&users)
+	if result.Error != nil {
+		log.Printf("failed to retrieve users: %v", result.Error)
 		return
+		}
+
+	for _, user := range users {
+		if user.District == lostAnimal.District.Title {
+			_ , err = s.Bot.SendMessage(user.TelegramID, msg, &gotgbot.SendMessageOpts{
+				ParseMode: "HTML",})
+
+			if err != nil {
+				log.Printf("Failed to send Telegram message: %v", err)
+				http.Error(w, "Failed to send Telegram message", http.StatusInternalServerError)
+				return
+			}
+		}
 	}
 
 	w.Write([]byte("Notifications sent"))

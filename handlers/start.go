@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"fmt"
+	"kedi_uz_bot/buttons"
 	"kedi_uz_bot/configs"
 	"kedi_uz_bot/models"
 
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
+	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
 	"gorm.io/gorm"
 )
 
@@ -22,13 +24,13 @@ func start(b *gotgbot.Bot, ctx *ext.Context) error {
 		db.Model(&userData).Where("telegram_id = ?", &userData.TelegramID).Updates(&userData)
 	}
 
-	_, err := ctx.EffectiveMessage.Reply(b, "/start", &gotgbot.SendMessageOpts{
-		ParseMode: "HTML",
+	_, err := b.SendMessage(ctx.EffectiveUser.Id, "choose district", &gotgbot.SendMessageOpts{
+		ReplyMarkup: buttons.StartKeyboardMarkup(),
 	})
 
 	if err != nil {
 		return fmt.Errorf("failed to send /about handler message: %w", err)
 	}
-	return nil
+	return handlers.NextConversationState(DISTRICT)
 }
 
