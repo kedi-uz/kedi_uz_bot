@@ -24,7 +24,9 @@ func getHelpText() string {
 	return `Mavjud komandalar ro'yxati:
 
 /help - ushbu xabarni qayta ko'rsatish
+
 /about - ushbu bot haqida ma'lumot
+
 /stats - kedi.uz haqida statistika ma'lumotlari
 `
 }

@@ -4,7 +4,6 @@ import (
 	"kedi_uz_bot/models"
 	"log"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -12,12 +11,9 @@ import (
 var DB *gorm.DB
 
 func InitDB() *gorm.DB {
-	psqlInfo := LoadConfig().psqlInfo
+	var err error
 
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Println("Warning: .env file not loaded, relying on system env vars")
-	}
+	psqlInfo := LoadConfig().psqlInfo
 
 	DB, err = gorm.Open(postgres.Open(psqlInfo), &gorm.Config{})
 	
