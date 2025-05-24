@@ -7,11 +7,26 @@ func StartKeyboardMarkup() gotgbot.ReplyKeyboardMarkup {
 		Keyboard: [][]gotgbot.KeyboardButton{
 			{
 				{Text: "Yunusobod"},
+				{Text: "Olmazor"},
+				{Text: "Shayxontohur"},
+			},
+			{
+				{Text: "Uchtepa"},
+				{Text: "Yakkasaroy"},
 				{Text: "Chilonzor"},
 			},
 			{
-				{Text: "Yakkasaroy"},
-				{Text: "Shayxontohur"},
+				{Text: "Mirobod"},
+				{Text: "Yashnobod"},
+				{Text: "Mirzo Ulugʻbek"},
+			},
+			{
+				{Text: "Sergeli"},
+				{Text: "Yangi Hayot"},
+				{Text: "Bektemir"},
+			},
+			{
+				{Text: "Yangi Toshkent"},
 			},
 		},
 

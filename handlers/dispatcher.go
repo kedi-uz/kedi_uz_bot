@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"log"
-	"kedi_uz_bot/utils"
 
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
-	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers/conversation"
 )
 
 const (
@@ -28,12 +26,12 @@ func Dispatcher() *ext.Dispatcher{
 	dispatcher.AddHandler(handlers.NewConversation(
 		[]ext.Handler{handlers.NewCommand("start", start)},
 		map[string][]ext.Handler{
-			DISTRICT: {handlers.NewMessage(utils.NoCommands, utils.District)},
+			DISTRICT: {handlers.NewMessage(nil, District)},
 		},
 		&handlers.ConversationOpts{
-			Exits: []ext.Handler{handlers.NewCommand("cancel", utils.Cancel)},
-			StateStorage: conversation.NewInMemoryStorage(conversation.KeyStrategySenderAndChat),
-			AllowReEntry: true,
+			// Exits: []ext.Handler{handlers.NewCommand("cancel", Cancel)},
+			// StateStorage: conversation.NewInMemoryStorage(conversation.KeyStrategySenderAndChat),
+			// AllowReEntry: true,
 		},
 	))
 	dispatcher.AddHandler(handlers.NewCommand("about", about))
