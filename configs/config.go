@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -9,6 +10,7 @@ import (
 
 type Config struct {
 	TelegramApiToken string
+	psqlInfo string
 }
 
 func LoadConfig() *Config{
@@ -16,18 +18,16 @@ func LoadConfig() *Config{
 	if err != nil {
 		log.Println("Warning: .env file not loaded, relying on system env vars")
 	}
-	
+	token := os.Getenv("API_KEY")
+	host := os.Getenv("DATABASE_HOST")
+	user := os.Getenv("DATABASE_USER")
+	password := os.Getenv("DATABASE_PASSWORD")
+	dbname := os.Getenv("DATABASE_NAME")
+	port := os.Getenv("DATABASE_PORT")
+	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tashkent", host, user, password, dbname, port,)
+
 	return &Config{
-		TelegramApiToken: os.Getenv("API_KEY"),
+		TelegramApiToken: token,
+		psqlInfo: psqlInfo,
 	}
 }
-
-// Load single config variable but it repeat the godotenv load when every time called
-// func LoadConfig(key string) string {
-// 	err := godotenv.Load(".env")
-// 	if err != nil {
-// 		log.Println("Warning: .env file not loaded, relying on system env vars")
-// 	}
-
-// 	return os.Getenv(key)
-// }
