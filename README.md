@@ -30,4 +30,4 @@ for _ , user := range users {
 4. Broadcast a message
 5. Add login via telegram in website like 42.uz otp code comes by phone number
 6. Add Points when user subscribers to @kedi_uz channel
-
+7.
