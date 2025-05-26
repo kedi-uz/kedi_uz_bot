@@ -5,6 +5,7 @@ To enter a development shell via nix
 nix develop
 ```
 
+
 When new position (row) added to the database table it will send webhook or something else to know telegram bot that bot shoudl do some filter action
 
 When new position added telegram bot finds region name and sends notification that registered users belonging only that region

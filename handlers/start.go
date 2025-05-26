@@ -16,9 +16,18 @@ func start(b *gotgbot.Bot, ctx *ext.Context) error {
 	var user models.TelegramUser
 	userData := user.GetUserData(ctx)
 
+	var existingUser models.TelegramUser
+
 	db := configs.DB 
 
-	if err := db.First(&userData).Where("telegram_id = ?", userData.TelegramID).Error; err == gorm.ErrRecordNotFound {
+	fmt.Println("------------------------------")
+	fmt.Println(ctx.EffectiveUser.Id)
+	fmt.Println("------------------------------")
+	fmt.Println("------------------------------")
+	fmt.Println(userData.TelegramID)
+	fmt.Println("------------------------------")
+	
+	if err := db.Where("telegram_id = ?", userData.TelegramID).First(&existingUser).Error; err == gorm.ErrRecordNotFound {
 		db.Create(&userData)
 	} else {
 		db.Model(&userData).Where("telegram_id = ?", &userData.TelegramID).Updates(&userData)
