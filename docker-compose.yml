@@ -11,13 +11,14 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
+    # networks:
+    #   - app-network
 
 
   app:
     build: .
     container_name: kedi_bot_app
+    network_mode: "host"
     restart: always
     env_file:
       - .env
@@ -27,12 +28,12 @@ services:
       - .:/app
     ports:
       - "8080:8080" 
-    networks:
-      - app-network
+    # networks:
+    #   - app-network
 
 volumes:
   postgres_data:
 
-networks:
-  app-network:
-    driver: bridge
+# networks:
+#   app-network:
+#     driver: bridge
