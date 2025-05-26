@@ -66,7 +66,7 @@ func main() {
 	server := &Server{Bot: b}
 	http.HandleFunc("/notify-lost-animal", server.handleLostAnimalNotification)
 	log.Println("HTTP server running on :8080")
-	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
 
 	// Idle, to keep updates coming in, and avoid bot stopping.
 	updater.Idle()
