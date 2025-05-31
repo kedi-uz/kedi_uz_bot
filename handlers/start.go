@@ -26,7 +26,7 @@ func start(b *gotgbot.Bot, ctx *ext.Context) error {
 		db.Model(&userData).Where("telegram_id = ?", &userData.TelegramID).Updates(&userData)
 	}
 
-	_, err := b.SendMessage(ctx.EffectiveUser.Id, "choose district", &gotgbot.SendMessageOpts{
+	_, err := b.SendMessage(ctx.EffectiveUser.Id, "Toshkent tumanini tanlang", &gotgbot.SendMessageOpts{
 		ReplyMarkup: buttons.StartKeyboardMarkup(),
 	})
 
@@ -80,13 +80,13 @@ func District(b *gotgbot.Bot, ctx *ext.Context) error {
 
 	if !validDistricts[inputDistrict] {
 		// If the number is not valid, try again!
-		ctx.EffectiveMessage.Reply(b, "❌ Invalid district. Please select a district from the list below:", &gotgbot.SendMessageOpts{
+		ctx.EffectiveMessage.Reply(b, "❌ Yaroqsiz tuman. Quyidagi roʻyxatdan tumanni tanlang:", &gotgbot.SendMessageOpts{
 			ParseMode: "html",
 		})
 		// We try the age handler again
 		return handlers.NextConversationState(DISTRICT)
 	}
-	_, err := b.SendMessage(ctx.EffectiveUser.Id, fmt.Sprintf("Your district set to: %s!\n\nLost pets on this district will be notified to you", inputDistrict), &gotgbot.SendMessageOpts{
+	_, err := b.SendMessage(ctx.EffectiveUser.Id, fmt.Sprintf("Tumaningiz belgilandi: %s!\n\nBu tumanda yo‘qolgan uy hayvonlari haqida sizga xabar beriladi", inputDistrict), &gotgbot.SendMessageOpts{
 		ParseMode: "html",
 		ReplyMarkup: gotgbot.ReplyKeyboardRemove{
 			RemoveKeyboard: true,
