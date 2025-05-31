@@ -36,7 +36,7 @@ func Dispatcher() *ext.Dispatcher{
 	))
 	dispatcher.AddHandler(handlers.NewCommand("about", about))
 	dispatcher.AddHandler(handlers.NewCommand("help", help))
-	dispatcher.AddHandler(handlers.NewCommand("stats", stats))
+	// dispatcher.AddHandler(handlers.NewCommand("stats", stats))
 	
 	return dispatcher
 }
