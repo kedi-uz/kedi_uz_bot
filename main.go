@@ -84,7 +84,7 @@ func (s *Server) handleLostAnimalNotification(w http.ResponseWriter, r *http.Req
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 	}
 
-	msg := fmt.Sprintf("<b>%s tumanida hayvon yoqoldi</b> \n\n", lostAnimal.District)
+	msg := fmt.Sprintf("<b>%s tumanida hayvon yoqoldi</b> \n\n", lostAnimal.District.Title)
 	msg += fmt.Sprintf("🐾 <b>%s</b>\n📍 %s\n🗓️ %s\n\n", lostAnimal.Title, lostAnimal.Location, lostAnimal.DateLost)
 	
 	var users []models.TelegramUser
